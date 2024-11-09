@@ -16,38 +16,38 @@ spec:
         - name: redpanda-console
           image: docker.redpanda.com/redpandadata/console:latest
           env:
-          - name: KAFKA_BROKERS
-            valueFrom:
-              configMapKeyRef:
-                name: redpanda-console-config
-                key: KAFKA_BROKERS
-          # - name: KAFKA_SASL_ENABLED
-          #   valueFrom:
-          #     configMapKeyRef:
-          #       name: redpanda-console-config
-          #       key: KAFKA_SASL_ENABLED
-          # - name: KAFKA_SASL_MECHANISM
-          #   valueFrom:
-          #     configMapKeyRef:
-          #       name: redpanda-console-config
-          #       key: KAFKA_SASL_MECHANISM
-          # - name: KAFKA_SASL_USERNAME
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: redpanda-console-secret
-          #       key: KAFKA_SASL_USERNAME
-          # - name: KAFKA_SASL_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: redpanda-console-secret
-          #       key: KAFKA_SASL_PASSWORD
-          # - name: KAFKA_SECURITY_PROTOCOL
-          #   valueFrom:
-          #     configMapKeyRef:
-          #       name: redpanda-console-config
-          #       key: KAFKA_SECURITY_PROTOCOL
+            - name: KAFKA_BROKERS
+              valueFrom:
+                configMapKeyRef:
+                  name: redpanda-console-config
+                  key: KAFKA_BROKERS
+            - name: KAFKA_SASL_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: redpanda-console-config
+                  key: KAFKA_SASL_ENABLED
+            - name: KAFKA_SASL_MECHANISM
+              valueFrom:
+                configMapKeyRef:
+                  name: redpanda-console-config
+                  key: KAFKA_SASL_MECHANISM
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: redpanda-console-secret
+                  key: KAFKA_SASL_USERNAME
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redpanda-console-secret
+                  key: KAFKA_SASL_PASSWORD
+            - name: KAFKA_SECURITY_PROTOCOL
+              valueFrom:
+                configMapKeyRef:
+                  name: redpanda-console-config
+                  key: KAFKA_SECURITY_PROTOCOL
           ports:
-          - containerPort: 8080
+            - containerPort: 8080
           resources:
             limits:
               cpu: 200m
@@ -56,5 +56,5 @@ spec:
               cpu: 100m
               memory: 128Mi
       volumes:
-      - name: config-volume
-        emptyDir: {}
+        - name: config-volume
+          emptyDir: {}
