@@ -13,7 +13,4 @@ spec:
           - pathType: ImplementationSpecific
             path: "/test-argo"
             backend:
-              service:
-                name: test-argo
-                port:
-                  number: 80
+              se
