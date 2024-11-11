@@ -21,6 +21,11 @@ create.kafka-tls-secret:
 	kubectl create secret tls ca-pair-sslcerts --cert=ca.pem --key=ca-key.pem -n kafka
 	rm ca-key.pem ca.pem
 
+deploy.alpha.mysql:
+	kubectl create namespace alpha
+	kubectl config set-context --current --namespace=alpha
+	helm install mysql -n alpha bitnami/mysql -f ./helm/mysql/values.yaml
+
 deploy.argocd:
 	kubectl create namespace argocd
 	kubectl config set-context --current --namespace=argocd
@@ -35,4 +40,4 @@ upgrade.kong:
 	kubectl config set-context --current --namespace=kong
 	helm upgrade kong -n kong kong/kong -f ./helm/kong/values.yaml
 
-.PHONY: deploy.argocd deploy.kong upgrade.kong
+.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.mysql deploy.argocd deploy.kong upgrade.kong

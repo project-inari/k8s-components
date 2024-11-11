@@ -1,0 +1,14 @@
+auth:
+  rootPassword: "Inari1234"
+
+primary:
+  persistence:
+    enabled: true
+    size: 7Gi
+
+secondary:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 2Gi
+
