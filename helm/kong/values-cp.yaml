@@ -1,0 +1,86 @@
+ingressController:
+  enabled: true
+  env:
+    publish_service: kong/kong-dp-kong-proxy
+    kong_admin_token: Inari1234
+
+image:
+  repository: kong/kong-gateway
+  tag: "3.8.0.0"
+
+# Mount the secret created earlier
+secretVolumes:
+  - kong-cluster-cert
+
+env:
+  # This is a control_plane node
+  role: control_plane
+  # These certificates are used for control plane / data plane communication
+  cluster_cert: /etc/secrets/kong-cluster-cert/tls.crt
+  cluster_cert_key: /etc/secrets/kong-cluster-cert/tls.key
+
+  admin_gui_url: http://localhost:32080
+  admin_gui_api_url: http://localhost:32079
+
+  # Database
+  database: postgres
+  pg_database: kong
+  pg_user: kong
+  pg_password: kong
+  pg_host: kong-cp-postgresql.kong.svc.cluster.local
+
+  # Kong Manager password
+  password: Inari1234
+
+# Enterprise functionality
+enterprise:
+  enabled: true
+
+# The control plane serves the Admin API
+admin:
+  enabled: true
+  type: NodePort
+  http:
+    enabled: true
+    servicePort: 8001
+    containerPort: 8001
+    nodePort: 32079
+
+# Clustering endpoints are required in hybrid mode
+cluster:
+  enabled: true
+  tls:
+    enabled: true
+
+clustertelemetry:
+  enabled: true
+  tls:
+    enabled: true
+
+manager:
+  enabled: true
+  type: NodePort
+  http:
+    enabled: true
+    servicePort: 8002
+    containerPort: 8002
+    nodePort: 32080
+
+# These roles will be served by different Helm releases
+proxy:
+  enabled: false
+
+# For testing purposes only, need to deploy PostgreSQL with PVC in production
+postgresql:
+  enabled: true
+  auth:
+    username: kong
+    password: kong
+    database: kong
+  image:
+    # use postgres < 14 until is https://github.com/Kong/kong/issues/8533 resolved and released
+    # enterprise (kong-gateway) supports postgres 14
+    tag: 13.11.0-debian-11-r20
+  service:
+    ports:
+      postgresql: "5432"

@@ -40,10 +40,10 @@ deploy.argocd:
 deploy.kong:
 	kubectl create namespace kong
 	kubectl config set-context --current --namespace=kong
-	helm install kong -n kong kong/kong -f ./helm/kong/values.yaml
+	openssl req -new -x509 -nodes -newkey ec:<(openssl ecparam -name secp384r1) -keyout ./tls.key -out ./tls.crt -days 1095 -subj "/CN=kong_clustering"
+	kubectl create secret tls kong-cluster-cert --cert=./tls.crt --key=./tls.key -n kong
+	rm tls.key tls.crt
+	helm install kong-cp kong/kong -n kong --values ./helm/kong/values-cp.yaml
+	helm install kong-dp kong/kong -n kong --values ./helm/kong/values-dp.yaml
 
-upgrade.kong:
-	kubectl config set-context --current --namespace=kong
-	helm upgrade kong -n kong kong/kong -f ./helm/kong/values.yaml
-
-.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.alpha.mysql deploy.monitoring deploy.argocd deploy.kong upgrade.kong
+.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.alpha.mysql deploy.monitoring deploy.argocd deploy.kong
