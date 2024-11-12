@@ -26,6 +26,12 @@ deploy.alpha.mysql:
 	kubectl config set-context --current --namespace=alpha
 	helm install mysql -n alpha bitnami/mysql -f ./helm/mysql/values.yaml
 
+deploy.monitoring:
+	kubectl create namespace monitoring
+	kubectl config set-context --current --namespace=monitoring
+	helm install prometheus -n monitoring prometheus-community/prometheus -f ./helm/prometheus/values.yaml
+	helm install grafana -n monitoring grafana/grafana -f ./helm/grafana/values.yaml
+
 deploy.argocd:
 	kubectl create namespace argocd
 	kubectl config set-context --current --namespace=argocd
@@ -40,4 +46,4 @@ upgrade.kong:
 	kubectl config set-context --current --namespace=kong
 	helm upgrade kong -n kong kong/kong -f ./helm/kong/values.yaml
 
-.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.mysql deploy.argocd deploy.kong upgrade.kong
+.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.alpha.mysql deploy.monitoring deploy.argocd deploy.kong upgrade.kong

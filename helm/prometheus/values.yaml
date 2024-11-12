@@ -1,0 +1,3 @@
+server:
+  persistentVolume:
+    size: 3Gi
