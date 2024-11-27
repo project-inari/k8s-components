@@ -30,18 +30,18 @@ spec:
               command:
                 - redis-cli
                 - ping
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 3
+            initialDelaySeconds: 90
+            periodSeconds: 60
+            timeoutSeconds: 15
+            failureThreshold: 5
           livenessProbe:
             exec:
               command:
                 - redis-cli
                 - ping
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 15
             failureThreshold: 3
           volumeMounts:
             - name: redis-volume

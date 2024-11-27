@@ -46,10 +46,10 @@ spec:
                 - rabbitmq-diagnostics
                 - -q
                 - ping
-            initialDelaySeconds: 60
-            periodSeconds: 30
-            timeoutSeconds: 10
-            failureThreshold: 3
+            initialDelaySeconds: 90
+            periodSeconds: 60
+            timeoutSeconds: 15
+            failureThreshold: 5
           readinessProbe:
             exec:
               command:
@@ -58,7 +58,7 @@ spec:
                 - ping
             initialDelaySeconds: 60
             periodSeconds: 30
-            timeoutSeconds: 10
+            timeoutSeconds: 15
             failureThreshold: 3
           volumeMounts:
             - name: rabbitmq-data
