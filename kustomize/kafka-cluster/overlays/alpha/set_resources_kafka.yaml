@@ -4,6 +4,7 @@ metadata:
   name: kafka
 spec:
   replicas: 1
+  dataVolumeCapacity: 15Gi
   configOverrides:
     server:
       - offsets.topic.replication.factor=2

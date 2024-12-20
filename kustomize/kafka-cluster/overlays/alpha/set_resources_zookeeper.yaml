@@ -4,6 +4,8 @@ metadata:
   name: zookeeper
 spec:
   replicas: 1
+  dataVolumeCapacity: 15Gi
+  logVolumeCapacity: 5Gi
   podTemplate:
     resources:
       limits:

@@ -15,16 +15,10 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:6.2-alpine
+          image: redis/redis-stack:7.2.0-v11
           ports:
             - containerPort: 6379
-          resources:
-            limits:
-              cpu: 200m
-              memory: 256Mi
-            requests:
-              cpu: 100m
-              memory: 128Mi
+            - containerPort: 8001
           readinessProbe:
             exec:
               command:

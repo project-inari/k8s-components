@@ -9,7 +9,6 @@ spec:
   image:
     application: confluentinc/cp-server:7.4.0
     init: confluentinc/confluent-init-container:2.6.0
-  dataVolumeCapacity: 15Gi
   listeners:
     listeners:
     custom:
@@ -40,10 +39,3 @@ spec:
     envVars:
       - name: KAFKA_HEAP_OPTS
         value: "-Xmx2G -Xms2G"
-    resources:
-      limits:
-        cpu: 1
-        memory: 1Gi
-      requests:
-        cpu: 0.5
-        memory: 512Mi
