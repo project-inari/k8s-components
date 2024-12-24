@@ -18,11 +18,3 @@ spec:
             requests:
               cpu: 125m
               memory: 128Mi
-  volumeClaimTemplates:
-    - metadata:
-        name: rabbitmq-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi

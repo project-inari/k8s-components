@@ -1,0 +1,7 @@
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: nfs-csi
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi

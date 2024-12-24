@@ -4,7 +4,9 @@ metadata:
   name: kafka
 spec:
   replicas: 1
-  dataVolumeCapacity: 15Gi
+  dataVolumeCapacity: 10Gi
+  storageClass:
+    name: nfs-csi
   configOverrides:
     server:
       - offsets.topic.replication.factor=2
@@ -17,10 +19,10 @@ spec:
     resources:
       limits:
         cpu: 1000m
-        memory: 1Gi
+        memory: 2Gi
       requests:
         cpu: 500m
-        memory: 512Mi
+        memory: 1Gi
   dependencies:
     zookeeper:
       endpoint: zookeeper.kafka.svc.cluster.local:2182

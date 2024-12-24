@@ -4,13 +4,15 @@ metadata:
   name: zookeeper
 spec:
   replicas: 1
-  dataVolumeCapacity: 15Gi
+  dataVolumeCapacity: 5Gi
   logVolumeCapacity: 5Gi
+  storageClass: 
+    name: nfs-csi
   podTemplate:
     resources:
       limits:
-        cpu: 1000m
+        cpu: 500m
         memory: 1Gi
       requests:
-        cpu: 500m
+        cpu: 250m
         memory: 512Mi
