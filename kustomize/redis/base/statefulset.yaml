@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: redis
   labels:
     app: redis
 spec:
+  serviceName: redis
   selector:
     matchLabels:
       app: redis
@@ -15,10 +16,9 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis/redis-stack:7.2.0-v11
+          image: redis:7.4.1-alpine
           ports:
             - containerPort: 6379
-            - containerPort: 8001
           readinessProbe:
             exec:
               command:

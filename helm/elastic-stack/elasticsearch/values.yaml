@@ -1,0 +1,17 @@
+replicas: 1
+minimumMasterNodes: 1
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"
+
+volumeClaimTemplate:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: "nfs-csi"
+  resources:
+    requests:
+      storage: 15Gi

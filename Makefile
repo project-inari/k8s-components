@@ -46,4 +46,12 @@ deploy.kong:
 	helm install kong-cp kong/kong -n kong --values ./helm/kong/values-cp.yaml
 	helm install kong-dp kong/kong -n kong --values ./helm/kong/values-dp.yaml
 
-.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.alpha.mysql deploy.monitoring deploy.argocd deploy.kong
+deploy.elastic.stack:
+	kubectl create namespace logging
+	kubectl config set-context --current --namespace=logging
+	helm install elasticsearch elastic/elasticsearch -n logging --values ./helm/elastic-stack/elasticsearch/values.yaml
+	helm install filebeat elastic/filebeat -n logging --values ./helm/elastic-stack/filebeat/values.yaml
+	helm install logstash elastic/logstash -n logging --values ./helm/elastic-stack/logstash/values.yaml
+	helm install kibana elastic/kibana -n logging --values ./helm/elastic-stack/kibana/values.yaml
+
+.PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.alpha.mysql deploy.monitoring deploy.argocd deploy.kong deploy.elastic.stack
