@@ -28,7 +28,7 @@ deploy.alpha.mysql:
 
 deploy.monitoring:
 	kubectl create namespace monitoring
-	kubectl config set-context --current --namespace=monitoring
+	kubectl apply -n monitoring -f ./helm/prometheus/pvc.yaml
 	helm install prometheus -n monitoring prometheus-community/prometheus -f ./helm/prometheus/values.yaml
 	helm install grafana -n monitoring grafana/grafana -f ./helm/grafana/values.yaml
 
@@ -53,5 +53,13 @@ deploy.elastic.stack:
 	helm install filebeat elastic/filebeat -n logging --values ./helm/elastic-stack/filebeat/values.yaml
 	helm install logstash elastic/logstash -n logging --values ./helm/elastic-stack/logstash/values.yaml
 	helm install kibana elastic/kibana -n logging --values ./helm/elastic-stack/kibana/values.yaml
+
+deploy.longhorn:
+	helm install longhorn longhorn/longhorn -n longhorn-system --create-namespace --values ./helm/longhorn/values.yaml
+
+deploy.loki:
+	kubectl create namespace loki
+	helm install loki grafana/loki -n loki -f ./helm/loki/values.yaml
+	helm install promtail grafana/promtail -n loki -f ./helm/promtail/values.yaml
 
 .PHONY: deploy.alpha.kafka-cluster deploy.prod.kafka-cluster create.kafka-tls-secret deploy.alpha.mysql deploy.monitoring deploy.argocd deploy.kong deploy.elastic.stack

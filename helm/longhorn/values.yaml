@@ -1,0 +1,8 @@
+longhornUI:
+  replicas: 1
+
+persistence:
+  defaultClassReplicaCount: 1
+
+csi:
+  kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet
