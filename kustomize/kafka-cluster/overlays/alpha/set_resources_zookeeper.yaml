@@ -6,8 +6,6 @@ spec:
   replicas: 1
   dataVolumeCapacity: 5Gi
   logVolumeCapacity: 5Gi
-  storageClass: 
-    name: nfs-csi
   podTemplate:
     resources:
       limits:
